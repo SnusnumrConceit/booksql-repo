@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
                 ->comment('наименование');
             $table->text('description')
                 ->comment('описание');
-            $table->tinyInteger('year')
+            $table->smallInteger('year')
                 ->comment('год');
             $table->timestamps();
         });

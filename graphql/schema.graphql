@@ -7,15 +7,29 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     users: [User!]! @paginate(type: "paginator" model: "App\\User")
     user(id: ID @eq): User @find(model: "App\\User")
+
+    books: [Book!]! @paginate(type: "paginator" model: "App\\Models\\Book")
+    book(id: ID @eq): Book @find(model: "App\\Models\\Book")
+
+    categories: [Category!]! @paginate(type: "paginator" model: "App\\Models\\Category")
+    category(id: ID @eq): Category @find(model: "App\\Models\\Category")
 }
 
-type Mutation {
-    createUser(
-        name: String! @rules(apply: ['required', 'min:4'],
-        email: String! @rules(apply: ['required', 'min:10', 'email'],
-        password: String! @rules(apply: ['required', 'min:8'] @bcrypt
-    ): [User]! @create
-}
+# type Mutation {
+#     createUser(
+#         name: String! @rules(apply: ["required", "min:4"]),
+#         email: String! @rules(apply: ["required', "min:10", "email"]),
+#         password: String! @bcrypt @rules(apply: ["required", "min:8"])
+#     ): User @create
+#     updateUser(
+#         id: ID! @rules(apply: ["required"]),
+#         name: String! @rules(apply: ["required", "min:4"]),
+#         email: String! @rules(apply: ["required', "min:10", "email"])        
+#     ): User @update
+#     deleteUser(
+#         id: ID! @rules(apply: ["required"])
+#     ): User @delete(model: "App\\User")
+# }
 
 type User {
     id: ID!
@@ -28,10 +42,11 @@ type User {
 type Book {
     id: ID!
     title: String!
-    year: Integer!
+    description: String!
+    year: Int!
     created_at: DateTime!
     updated_at: DateTime!
-    authors: [Author]! @belongsTo
+    authors: [Author!]! @belongsTo
 }
 
 type Author {
@@ -39,14 +54,14 @@ type Author {
     last_name: String!
     first_name: String!
     middle_name: String!
-    description: Text!
+    description: String!
     created_at: DateTime!
     updated_at: DateTime!
-    books: [Book]! @hasMany
+    books: [Book!]! @hasMany
 }
 
 type Category {
     id: ID!
     name: String!
-    books: [Book]! @hasMany
+    books: [Book!]! @hasMany
 }

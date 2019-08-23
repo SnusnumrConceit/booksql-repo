@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-    public function books()
+    public function books() : HasMany
     {
         return $this->hasMany(Book::class);
     }
