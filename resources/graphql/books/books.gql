@@ -1,0 +1,12 @@
+query GetBooks ($page: Int!){
+    books (first: 2, page: $page) {
+        data {
+            id
+            title
+        },
+        paginatorInfo {
+            lastPage
+            currentPage
+        }
+    }
+}

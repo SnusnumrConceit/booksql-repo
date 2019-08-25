@@ -11,8 +11,12 @@ type Query {
     books: [Book!]! @paginate(type: "paginator" model: "App\\Models\\Book")
     book(id: ID @eq): Book @find
 
-    categories: [Category!]! @paginate(type: "paginator" model: "App\\Models\\Category")
+    #categories: [Category!]! @paginate(type: "paginator" model: "App\\Models\\Category")
+    categories: [Category!]! @all
     category(id: ID @eq): Category @find
+
+    authors: [Author!]! @paginate(type: "paginator" model: "App\\Models\\Author")
+    author(id: ID @eq): Author @find
 }
 
 type Mutation {

@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import Front from './components/front';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +28,34 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Vue from 'vue';
+
+import Paginate from 'vuejs-paginate';
+Vue.component('paginate', Paginate)
+
+
+import ApolloClient from 'apollo-boost';
+import VueApollo from 'vue-apollo';
+
+const apolloProvider = new VueApollo({
+  defaultClient: new ApolloClient({
+    uri: 'http://booksql.test/graphql'
+  })
+});
+
+import { routes } from './routes.js';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+Vue.use(VueApollo);
+
+const router = new VueRouter({routes});
+
 const app = new Vue({
-    el: '#app',
+  el: '#app',
+  components: {
+    Front
+  },
+  apolloProvider,
+  router
 });
