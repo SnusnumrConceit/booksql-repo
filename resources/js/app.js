@@ -31,7 +31,10 @@ import Front from './components/front';
 import Vue from 'vue';
 
 import Paginate from 'vuejs-paginate';
-Vue.component('paginate', Paginate)
+Vue.component('paginate', Paginate);
+
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
 
 
 import ApolloClient from 'apollo-boost';
@@ -40,7 +43,14 @@ import VueApollo from 'vue-apollo';
 const apolloProvider = new VueApollo({
   defaultClient: new ApolloClient({
     uri: 'http://booksql.test/graphql'
-  })
+  }),
+  defaultOptions: {
+    // See 'apollo' definition
+    // For example: default query options
+    $query: {
+      fetchPolicy: 'no-cache'
+    }
+  }
 });
 
 import { routes } from './routes.js';

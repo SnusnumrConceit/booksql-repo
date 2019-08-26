@@ -1,0 +1,14 @@
+mutation (
+    $title: String!,
+    $year: Int!,
+    $description: String!
+) {
+    createBook(
+        title: $title,
+        year: $year,
+        description: $description) {
+            id
+            title
+            description
+        }
+}

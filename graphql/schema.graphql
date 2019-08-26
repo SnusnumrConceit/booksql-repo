@@ -11,12 +11,13 @@ type Query {
     books: [Book!]! @paginate(type: "paginator" model: "App\\Models\\Book")
     book(id: ID @eq): Book @find
 
-    #categories: [Category!]! @paginate(type: "paginator" model: "App\\Models\\Category")
+    categoriesPaginate: [Category!]! @paginate(type: "paginator" model: "App\\Models\\Category")
     categories: [Category!]! @all
     category(id: ID @eq): Category @find
 
-    authors: [Author!]! @paginate(type: "paginator" model: "App\\Models\\Author")
+    authorsPaginate: [Author!]! @paginate(type: "paginator" model: "App\\Models\\Author")
     author(id: ID @eq): Author @find
+    authors: [Author!]! @all
 }
 
 type Mutation {
@@ -32,6 +33,21 @@ type Mutation {
     deleteCategory(
         id: ID! @rules(apply: ["required"])
     ) : Category @delete
+
+    createBook(
+        title: String @rules(apply: ["required", "unique:books,title"])
+        year: Int @rules(apply: ["required"])
+        description: String @rules(apply: ["required"])
+    ) : Book @create
+
+    updateBook(
+        id: ID @rules(apply: ["required"]),
+        title: String @rules(apply: ["required", "unique:books,title"])
+    ) : Book @update
+
+    deleteBook(
+        id: ID! @rules(apply: ["required"])
+    ) : Book @delete
 }
 
 type User {

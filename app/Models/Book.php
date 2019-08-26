@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    protected $fillable = ['title', 'description', 'year'];
+
     public function author() : BelognsTo
     {
         return $this->belongsTo(Author::class);
